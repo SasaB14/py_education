@@ -46,3 +46,5 @@ for i in range(1,36):
 
 
 print('ooooooooooooooooo')
+mylist = [1,2,3]
+help(mylist.insert)
