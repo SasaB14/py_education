@@ -53,7 +53,7 @@ class Hand:
     def add_card(self,card):
         self.cards.append(card) #dodajemo kartu
         self.value += values[card.rank] #na vredost dodajemo vrednost karte
-        if card.rank == 'Ace': 
+        if card.rank == 'As': 
         	self.aces += 1
     
     def adjust_for_ace(self):
