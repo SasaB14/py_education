@@ -28,11 +28,12 @@ class Deck:
         deck_comp = ''
         for card in self.deck:
             deck_comp += '\n '+card.__str__()
-        return 'The deck has:' + deck_comp
+        return 'Spil ima: ' + deck_comp
 
     def shuffle(self):
         random.shuffle(self.deck)
-        
+
+	#deck je niz pa koristimo pop() da izvucemo zadnji element        
     def deal(self):
         single_card = self.deck.pop()
         return single_card
@@ -50,9 +51,9 @@ class Hand:
     	return ruka
     
     def add_card(self,card):
-        self.cards.append(card)
-        self.value += values[card.rank]
-        if card.rank == 'Ace':
+        self.cards.append(card) #dodajemo kartu
+        self.value += values[card.rank] #na vredost dodajemo vrednost karte
+        if card.rank == 'Ace': 
         	self.aces += 1
     
     def adjust_for_ace(self):
@@ -81,27 +82,27 @@ class Chips:
     
     def lose_bet(self):
         self.total -= self.bet
-
+#provera za ulog cipova, ako je veci od raspolozive vrednosti daje se poruka da ne moze i vraca se ponovo na petlju
 def take_bet(chips):
 	while True:
 		try:
-			chips.bet = int(input("koliko cipova ulazete: "))
+			chips.bet = int(input("Koliko cipova ulazete: "))
 		except:
 			print("niste uneli ceo broj")
 			continue
 		else:
 			if chips.bet > chips.total:
-				print("Zao nam je vas ulog ne moze da bude veci od",chips.total)
+				print("Zao nam je vas ulog ne moze da bude veci od ",chips.total)
 			else:
 				break
-
+#deli sledecu kartu dodaje je u ruku i proverava da li je kec u zbiru
 def hit(deck,hand):
 	hand.add_card(deck.deal())
 	hand.adjust_for_ace()
 
 def hit_or_stand(deck,hand):
-    global playing  # to control an upcoming while loop
-    
+    global playing  # za kontrolu while petlje
+
     while True:
         x = input("Zelite li novu kartu ili ostajete? unesite 'k' or 'o' ")
         
@@ -116,7 +117,7 @@ def hit_or_stand(deck,hand):
             print("Pokusajte ponovo.")
             continue
         break
-
+#prikazuje sve karte igraca, kod delioca skriva prvu i pokazuje drugu
 def show_some(player,dealer):
 	CRED = '\033[91m'
 	CGREEN  = '\33[32m'
@@ -126,15 +127,15 @@ def show_some(player,dealer):
 	print('',dealer.cards[1])
 	print(CGREEN+"\nRuka igraca:", *player.cards, sep='\n '+CEND)
 	print("Ruka igraca =",player.value)
-
+#prikazuje karte i igraca i delioca
 def show_all(player,dealer):
 	CGREEN  = '\33[32m'
 	CRED = '\033[91m'
 	CEND = '\033[0m'
 	print(CRED+"\nRuka delioca:", *dealer.cards, sep='\n '+CEND)
-	print("Ruka delioca =",dealer.value)
+	print("Ruka delioca = ",dealer.value)
 	print(CGREEN+"\nRuka igraca:", *player.cards, sep='\n '+CEND)
-	print("Ruka igraca =",player.value)
+	print("Ruka igraca = ",player.value)
 
 
 
@@ -221,7 +222,7 @@ while True:
             push(player_hand,dealer_hand)        
     
     # prikazi koliko cipova ima igrac 
-    print("\nIgrac ima cipova: ",player_chips.total)
+    print("\nIgrac sad ima cipova: ",player_chips.total)
     
     # Ask to play again
     new_game = input("Zelite li jos jednu ruku? unesite 'd' ili 'n' ")
