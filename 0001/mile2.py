@@ -57,6 +57,7 @@ class Hand:
         	self.aces += 1
     
     def adjust_for_ace(self):
+    	#ako je ukupna vrednost veca od 21 i ja imam keca, onda promeni keca da ima vrednost 1 umesto 11
         while self.value > 21 and self.aces>0:
         	self.value -=10
         	self.aces -=1
@@ -82,6 +83,7 @@ class Chips:
     
     def lose_bet(self):
         self.total -= self.bet
+
 #provera za ulog cipova, ako je veci od raspolozive vrednosti daje se poruka da ne moze i vraca se ponovo na petlju
 def take_bet(chips):
 	while True:
